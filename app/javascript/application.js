@@ -4,7 +4,14 @@
 import "@hotwired/turbo-rails"
 import "controllers" 
 
-$(document).on('turbo:load', function() {
+$(document).on('turbo:render', function() {
     $('.ui.dropdown').dropdown();
+    $('.message .close')
+  .on('click', function() {
+    $(this)
+      .closest('.message')
+      .transition('fade')
+    ;
+  })
+;
 })
-// $(document).on('turbo:load', function(){ //     $('.ui.dropdown').dropdown(); // }) 
