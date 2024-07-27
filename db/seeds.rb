@@ -8,12 +8,30 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-User.create(username: "Evgeny", password: "password")
-User.create(username: "Tronald Dump", password: "password")
-User.create(username: "Bilbo", password: "password")
-User.create(username: "Ravshan", password: "password")
-User.create(username: "Go-Go-Boy", password: "password")
+users = [
+  { username: "Evgeny", password: "password", password_confirmation: "password" },
+  { username: "Tronald Dump", password: "password", password_confirmation: "password" },
+  { username: "Bilbo Baggins", password: "password", password_confirmation: "password" },
+  { username: "Ravshan", password: "password", password_confirmation: "password" },
+  { username: "Go-Go-Girl", password: "password", password_confirmation: "password" }
+]
 
-Message.create(body: "Hello everyone", user_id: 1)
-Message.create(body: "Hey new guy", user_id: 6)
-Message.create(body: "I'm chillin like a boss", user_id: 4)
+users.each do |user|
+  created_user = User.create(user)
+  puts "Created user: #{created_user.username}, ID: #{created_user.id}" if created_user.persisted?
+end
+
+messages = [
+  { body: "Hello everyone", user: User.find_by(username: "Evgeny") },
+  { body: "Hey new guy", user: User.find_by(username: "Go-Go-Girl") },
+  { body: "Welcome!", user: User.find_by(username: "Ravshan") },
+  { body: "How u doing ya all?", user: User.find_by(username: "Evgeny") },
+  { body: "I'm chillin like a villain", user: User.find_by(username: "Tronald Dump") },
+  { body: "Oh boy!", user: User.find_by(username: "Bilbo Baggins") }
+]
+
+messages.each do |message|
+  created_message = Message.create(message)
+  puts "Created message: #{created_message.body}, User ID: #{created_message.user_id}" if created_message.persisted?
+end
+
