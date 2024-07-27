@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     if @user.save
       session[:user_id] = @user.id    # log the user in
       flash[:success] = "Welcome to the MessageMe!"
-      redirect_to root_path
+      redirect_to chatroom_path
     else
       render :new, status: :unprocessable_entity
     end
